@@ -10,7 +10,7 @@
     <title>Carrera</title>
 
     <?php
-
+    require('../db/Conectar.php');
     require('../controllers/ctrlPista.php');
 
     $pistas = mostrarPistas();
@@ -40,11 +40,7 @@
                     <td><?php echo $fila['carriles'] ?></td>
                     <td>
 
-
-
-                        <a href="./listaJugadores.php?carriles=<?php echo $fila['carriles'] ?>">Elegir</a>
-
-
+                        <a href="./listaJugadores.php?carriles=<?php echo $fila['carriles'] ?>&idPista=<?php echo $fila['id'] ?>">Elegir</a>
 
                     </td>
                 </tr>

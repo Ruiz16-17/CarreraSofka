@@ -1,6 +1,6 @@
 <?php 
 
-require('../db/Conectar.php');
+
 
 class pista{
 
@@ -34,56 +34,34 @@ class pista{
             die("Se produjo un error $e");
         }
     }
-    
 
-    /**
-     * Get the value of carriles
-     */ 
     public function getCarriles()
     {
         return $this->carriles;
     }
 
-    /**
-     * Set the value of carriles
-     *
-     */ 
     public function setCarriles($carriles)
     {
         $this->carriles = $carriles;
 
     }
 
-    /**
-     * Get the value of km
-     */ 
     public function getKm()
     {
         return $this->km;
     }
 
-    /**
-     * Set the value of km
-     *
-     */ 
     public function setKm($km)
     {
         $this->km = $km;
 
     }
 
-    /**
-     * Get the value of id
-     */ 
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set the value of id
-     *
-     */ 
     public function setId($id)
     {
         $this->id = $id;
