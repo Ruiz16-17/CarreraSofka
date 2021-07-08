@@ -18,7 +18,7 @@ function mostrarCarriles($id_pista)
     return $modelo->mostrar();
 }
 
-function actualizarDesplazamiento($id, $desplazamiento, $id_Jugador)
+function actualizarDesplazamiento($id, $desplazamiento, $id_Jugador,$meta)
 {
 
     require('../db/Conectar.php');
@@ -26,11 +26,24 @@ function actualizarDesplazamiento($id, $desplazamiento, $id_Jugador)
     $modelo = new carril($id, null, null, null);
 
     $modelo->setDesplazamiento($desplazamiento);
-
     $modelo->sumarDesplazamiento();
+    corregirRecorrido($id,$meta);
     turnosActual($id_Jugador);
 
     header("Location: ../views/juego.php");
+}
+
+function corregirRecorrido($id,$meta)
+{
+
+    $modelo = new carril($id, null, null, null);
+
+    $resultado = $modelo->buscar();
+
+    if($resultado[0]['desplazamiento']>=$meta){
+        $modelo->setDesplazamiento($meta);
+        $modelo->corregirDesplazamiento();
+    }
 }
 
 function turnosActual($id)
@@ -48,5 +61,5 @@ function turnosActual($id)
 }
 
 if (isset($_POST['btnAvanzar'])) {
-    actualizarDesplazamiento($_POST['txtIdCarril'], $_POST['txtRecorrido' . $_POST['txtIdCarril']],$_POST['txtIdJugador']);
+    actualizarDesplazamiento($_POST['txtIdCarril'], $_POST['txtRecorrido' . $_POST['txtIdCarril']],$_POST['txtIdJugador'],$_POST['txtMeta']);
 }

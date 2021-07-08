@@ -40,7 +40,6 @@
             <?php
 
             foreach ($carrera as $fila) {
-
             ?>
                 <form action="../controllers/ctrlCarril.php" method="post">
                     <tr>
@@ -54,16 +53,16 @@
                             <input type="text" id="txtRecorrido<?php echo $fila['id'] ?>" name="txtRecorrido<?php echo $fila['id'] ?>">
                             <input type="text" value="<?php echo $fila['id'] ?>" name="txtIdCarril">
                             <input type="text" value="<?php echo $fila['id_Jugador'] ?>" name="txtIdJugador">
+                            <input type="text" value="<?php echo ($carrera[0]['km'] * 1000) ?>" name="txtMeta">
 
                         </td>
-                        <td>
                             <?php
-                            $habilitado = '';
-                            if ($fila['turno'] == 0) {
-                                $habilitado =  'disabled';
-                            }
+                            if (($carrera[0]['km'] * 1000) > $fila['desplazamiento']) {
+
+                                if ($fila['turno'] == 1) {
                             ?>
-                            <button type="button" class="btn btn-warning" <?php echo $habilitado ?> onclick="lanzar(<?php echo $fila['id'] ?>,'btnAvanzar');deshabilitar('btnLanzar<?php echo $fila['id'] ?>')" id="btnLanzar<?php echo $fila['id'] ?>">Lanzar</button>
+                        <td>
+                                    <button type="button" name="btnLanzar" class="btn btn-warning" onclick="lanzar(<?php echo $fila['id'] ?>,'btnAvanzar');deshabilitar('btnLanzar<?php echo $fila['id'] ?>');" id="btnLanzar<?php echo $fila['id'] ?>">Lanzar</button>
 
                         </td>
 
@@ -72,6 +71,10 @@
                             <button type="submit" class="btn btn-outline-success" name="btnAvanzar" disabled="true" id="btnAvanzar<?php echo $fila['id'] ?>">Avanzar</button>
 
                         </td>
+                            <?php
+                                }
+                            }
+                            ?>
 
                     </tr>
 
@@ -85,7 +88,7 @@
     </table>
 
     <div>
-        <h2>Avanzaste</h2>
+        <h2>Avanzas</h2>
         <h2 name="txtAvanzar" id="txtAvanzar">0</h2>
     </div>
 

@@ -84,7 +84,23 @@ class carril {
 
             $query->execute();
 
-        
+        } catch (Exception $e) {
+
+            die("Se produjo un error $e");
+        }
+    }
+
+    public function corregirDesplazamiento() {
+
+        try {
+
+            $sql = "  UPDATE tbl_carril SET 
+            desplazamiento = " .$this->getDesplazamiento(). "
+            WHERE id = " .$this->getId();
+            $query = $this->conexionDB->conectar()->prepare($sql);
+
+            $query->execute();
+            
         } catch (Exception $e) {
 
             die("Se produjo un error $e");

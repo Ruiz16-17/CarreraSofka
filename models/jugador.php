@@ -77,7 +77,7 @@ class jugador {
 
         try {
 
-            $sql = "SELECT tbl_jugador.id AS id_Jugador, tbl_jugador.nombre, tbl_carro.color, tbl_carril.id,tbl_carril.desplazamiento,tbl_pista.km, tbl_jugador.turno FROM tbl_jugador 
+            $sql = "SELECT tbl_jugador.id AS id_Jugador, tbl_jugador.nombre, tbl_carro.color, tbl_carril.id,tbl_carril.desplazamiento,tbl_pista.km, tbl_pista.carriles, tbl_jugador.turno FROM tbl_jugador 
             INNER JOIN tbl_conductor ON tbl_jugador.id = tbl_conductor.id_jugador
             INNER JOIN tbl_carro ON tbl_carro.id_conductor = tbl_conductor.id
             INNER JOIN tbl_carril ON tbl_carro.id = tbl_carril.id_carro
@@ -128,8 +128,13 @@ class jugador {
     public function otorgarTurno() {
 
         try {
-
-            $sql = "UPDATE tbl_jugador SET turno = 1 WHERE estaJugando = 1";
+            $sql = "UPDATE tbl_jugador
+            INNER JOIN tbl_conductor ON (tbl_jugador.id = tbl_conductor.id_jugador) 
+            INNER JOIN tbl_carro ON (tbl_carro.id_conductor = tbl_conductor.id)
+            INNER JOIN tbl_carril ON (tbl_carro.id = tbl_carril.id_carro)
+            INNER JOIN tbl_pista ON (tbl_pista.id = tbl_carril.id_pista)
+            SET tbl_jugador.turno = 1 
+            WHERE estaJugando = 1 AND (tbl_pista.km * 1000) > tbl_carril.desplazamiento";
             $query = $this->conexionDB->conectar()->prepare($sql);
 
             $query->execute();
