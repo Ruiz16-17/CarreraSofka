@@ -1,0 +1,13 @@
+.lanzar {
+  background-color: brown;
+}
+
+.puntaje {
+  overflow: hidden;
+}
+
+.numeroDado {
+    margin: 1em;
+    padding: 1em;
+    float:left;
+}
