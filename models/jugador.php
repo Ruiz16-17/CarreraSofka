@@ -37,6 +37,24 @@ class jugador {
         }
     }
 
+    public function ranking() {
+
+        try {
+
+            $sql = "SELECT * FROM tbl_jugador ORDER BY primerLugar DESC";
+            $query = $this->conexionDB->conectar()->prepare($sql);
+
+            $query->execute();
+
+            $resultado = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultado;
+        } catch (Exception $e) {
+
+            die("Se produjo un error $e");
+        }
+    }
+
     public function MostrarJugando() {
 
         try {

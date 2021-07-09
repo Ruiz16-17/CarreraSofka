@@ -112,28 +112,23 @@
 
 
 
-    <?php 
+    <?php
 
-    if($carrilesSeleccionados[0]['cantidad'] == $cantidadCarriles[0]['carriles'] && $conductoresSeleccionados[0]['cantidad'] == $cantidadCarriles[0]['carriles']){
+    if ($carrilesSeleccionados[0]['cantidad'] == $cantidadCarriles[0]['carriles'] && $conductoresSeleccionados[0]['cantidad'] == $cantidadCarriles[0]['carriles']) {
 
-    
 
-?>
-    <form action="../controllers/ctrlJugador.php" method="post">
-        <button type="submit" class="btn btn-outline-success" name="btnJugar">Empezar a jugar</button>
-    </form>
 
-    <?php 
+    ?>
+        <form action="../controllers/ctrlJugador.php" method="post">
+            <button type="submit" class="btn btn-outline-success" name="btnJugar">Empezar a jugar</button>
+            <input type="hidden" name="txtIdPista" value="<?php echo $_GET['idPista'] ?>">
+        </form>
+
+    <?php
 
     }
 
-?>
-
-<form action="../controllers/reiniciarValores.php" method="post">
-        <button type="submit" class="btn btn-outline-success" name="btnJugar">reiniciar</button>
-        <input type="hidden" name="txtPodio" value="<?php echo $_GET['idPodio'] ?>">
-    </form>
-
+    ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>

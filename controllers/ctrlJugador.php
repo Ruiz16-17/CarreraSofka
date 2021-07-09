@@ -7,7 +7,15 @@ function mostrarJugadores()
 
     $modelo = new jugador(null, null, null, null);
 
-    return $modelo->Mostrar('');
+    return $modelo->Mostrar('1');
+}
+
+function mostrarRankingJugadores()
+{
+
+    $modelo = new jugador(null, null, null, null);
+
+    return $modelo->ranking();
 }
 
 function mostrarJugador($id)
@@ -15,7 +23,7 @@ function mostrarJugador($id)
 
     $modelo = new jugador(null, null, null, null);
 
-    return $modelo->Mostrar('id = ' . $id);
+    return $modelo->Mostrar(' id = ' . $id);
 }
 
 function mostrarActuales()
@@ -118,9 +126,11 @@ function victoria($id){
 if (isset($_POST['btnJugar'])) {
     require('../db/Conectar.php');
     require('../controllers/ctrlPodio.php');
+    require('../controllers/ctrlJuego.php');
 
+    
     crearPodio();
     $id_Podio = lastIdPodio();
-
+    crearJuego($_POST['txtIdPista'],$id_Podio[0]['id']);
     asignarTurno($id_Podio[0]['id']);
 }
