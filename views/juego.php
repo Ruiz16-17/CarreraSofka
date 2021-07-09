@@ -19,7 +19,7 @@
     require('../controllers/ctrlCarril.php');
     require('../controllers/ctrlPodio.php');
     $terminar = 0;
-    $terminar += terminarJuego(1);
+    $terminar += terminarJuego($_GET['idPodio']);
 
     $carrera = mostrarCarrera();
 

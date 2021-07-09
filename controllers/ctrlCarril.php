@@ -30,30 +30,31 @@ function actualizarDesplazamiento($id, $desplazamiento, $id_Jugador,$meta,$id_Po
 {
 
     require('../db/Conectar.php');
-
-    $modelo = new carril($id, null, null, null);
-
-    $modelo->setDesplazamiento($desplazamiento);
-    $modelo->sumarDesplazamiento();
-    corregirRecorrido($id,$meta,$id_Podio, $id_Jugador);
+    verificarDesplazamiento($id, $desplazamiento, $id_Jugador,$meta,$id_Podio);
     turnosActual($id_Jugador,$id,$id_Podio);
 
     header("Location: ../views/juego.php?idPodio=".$id_Podio);
 }
 
-function corregirRecorrido($id,$meta,$id_Podio, $id_Jugador)
+function verificarDesplazamiento($id, $desplazamiento, $id_Jugador,$meta,$id_Podio)
 {
 
     $modelo = new carril($id, null, null, null);
-
     $resultado = $modelo->buscar();
 
-    if($resultado[0]['desplazamiento']>=$meta){
-        $modelo->setDesplazamiento($meta);
-        $modelo->corregirDesplazamiento();
+    if(($resultado[0]['desplazamiento'] + $desplazamiento)>$meta){
+        
         require('../controllers/ctrlPodio.php');
-
+    }else if(($resultado[0]['desplazamiento'] + $desplazamiento) == $meta){
+        
+        $modelo->setDesplazamiento($desplazamiento);
+        $modelo->sumarDesplazamiento();
+        require('../controllers/ctrlPodio.php');
         asignarPodio($id_Podio, $id_Jugador);
+    }else{
+        $modelo->setDesplazamiento($desplazamiento);
+        $modelo->sumarDesplazamiento();
+        require('../controllers/ctrlPodio.php');
     }
 }
 

@@ -108,6 +108,13 @@ function reiniciarJugador()
     $modelo->reiniciar();
 }
 
+function victoria($id){
+
+    $modelo = new jugador($id, null, null, null);
+    $modelo->sumarVictoria();
+
+}
+
 if (isset($_POST['btnJugar'])) {
     require('../db/Conectar.php');
     require('../controllers/ctrlPodio.php');

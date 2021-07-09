@@ -15,9 +15,11 @@
     require('../controllers/ctrlPodio.php');
 
     $ganadores = ganadoresPodio($_GET['idPodio']);
+    victoria($ganadores[0]['jugadorPrimero']);
     $primer = mostrarJugador($ganadores[0]['jugadorPrimero']);
     $segundo = mostrarJugador($ganadores[0]['jugadorSegundo']);
     $tercero = mostrarJugador($ganadores[0]['jugadorTercero']);
+
     ?>
 
 </head>
@@ -60,7 +62,7 @@
     </table>
     <div>
 
-        <form action="../index.php">
+        <form action="../controllers/reiniciarValores.php">
 
             <button class="btn btn-outline-success">Volver a jugar</button>
 
