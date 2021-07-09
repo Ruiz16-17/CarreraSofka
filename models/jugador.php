@@ -179,6 +179,22 @@ class jugador {
             die("Se produjo un error $e");
         }
     }
+
+    public function reiniciar() {
+
+        try {
+
+            $sql = "UPDATE tbl_jugador SET  
+            estaJugando=0, 
+            turno=0";
+            $query = $this->conexionDB->conectar()->prepare($sql);
+
+            $query->execute();
+        } catch (Exception $e) {
+
+            die("Se produjo un error $e");
+        }
+    }
     
     public function getPrimerLugar()
     {

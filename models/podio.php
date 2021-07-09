@@ -1,7 +1,5 @@
 <?php 
 
-
-
 class podio{
 
     private $conexionDB;
@@ -20,11 +18,43 @@ class podio{
         $this->jugadorTercero = $jugadorTercero;
     }
 
+    public function crear() {
+
+        try {
+
+            $sql = "INSERT INTO `tbl_podio` (`id`, `jugadorPrimero`, `jugadorSegundo`, `jugadorTercero`) VALUES (NULL, NULL, NULL, NULL); ";
+            $query = $this->conexionDB->conectar()->prepare($sql);
+
+            $query->execute();
+        } catch (Exception $e) {
+
+            die("Se produjo un error $e");
+        }
+    }
+
+    public function lastId() {
+
+        try {
+
+            $sql = "SELECT LAST_INSERT_ID() AS id FROM tbl_podio;";
+            $query = $this->conexionDB->conectar()->prepare($sql);
+
+            $query->execute();
+
+            $resultado = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultado;
+        } catch (Exception $e) {
+
+            die("Se produjo un error $e");
+        }
+    }
+
     public function Mostrar() {
 
         try {
 
-            $sql = "SELECT * FROM tbl_podio WHERE id = ";
+            $sql = "SELECT * FROM tbl_podio";
             $query = $this->conexionDB->conectar()->prepare($sql);
 
             $query->execute();
@@ -42,7 +72,7 @@ class podio{
 
         try {
 
-            $sql = "SELECT COUNT(*) AS cantidad FROM tbl_podio WHERE id = 1 AND $puesto IS NULL ";
+            $sql = "SELECT COUNT(*) AS cantidad FROM tbl_podio WHERE id = $this->getId() AND $puesto IS NULL";
             $query = $this->conexionDB->conectar()->prepare($sql);
 
             $query->execute();
@@ -65,6 +95,24 @@ class podio{
 
             $query->execute();
 
+        } catch (Exception $e) {
+
+            die("Se produjo un error $e");
+        }
+    }
+
+    public function ganadores() {
+
+        try {
+
+            $sql = "SELECT * FROM tbl_podio WHERE id = " .$this->getId();
+            $query = $this->conexionDB->conectar()->prepare($sql);
+
+            $query->execute();
+
+            $resultado = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultado;
         } catch (Exception $e) {
 
             die("Se produjo un error $e");

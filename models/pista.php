@@ -17,11 +17,11 @@ class pista{
         $this->carriles = $carriles;
     }
 
-    public function Mostrar() {
+    public function Mostrar($condicion) {
 
         try {
 
-            $sql = "SELECT * FROM tbl_pista";
+            $sql = "SELECT * FROM tbl_pista $condicion";
             $query = $this->conexionDB->conectar()->prepare($sql);
 
             $query->execute();

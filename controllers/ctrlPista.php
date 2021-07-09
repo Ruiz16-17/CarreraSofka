@@ -6,6 +6,15 @@ function mostrarPistas(){
 
     $modelo = new pista(null,null,null) ;
 
-    return $modelo->Mostrar();
+    return $modelo->Mostrar('');
     
 }
+
+function carrilesPista($id){
+
+    $modelo = new pista(null,null,null) ;
+
+    return $modelo->Mostrar('WHERE id = '.$id);
+    
+}
+

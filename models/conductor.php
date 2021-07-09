@@ -57,6 +57,40 @@ class conductor {
             die("Se produjo un error $e");
         }
     }
+
+    public function seleccionado() {
+
+        try {
+
+            $sql = "SELECT COUNT(*) AS cantidad FROM tbl_conductor WHERE id_jugador != 0 AND id_carro IS NOT NULL";
+            $query = $this->conexionDB->conectar()->prepare($sql);
+
+            $query->execute();
+
+            $resultado = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultado;
+        } catch (Exception $e) {
+
+            die("Se produjo un error $e");
+        }
+    }
+
+    public function reiniciar() {
+
+        try {
+
+            $sql = "UPDATE tbl_conductor SET  
+            id_jugador=0, 
+            escogido=0";
+            $query = $this->conexionDB->conectar()->prepare($sql);
+
+            $query->execute();
+        } catch (Exception $e) {
+
+            die("Se produjo un error $e");
+        }
+    }
     
     public function getId_Jugador()
     {

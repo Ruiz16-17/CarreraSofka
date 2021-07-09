@@ -30,7 +30,7 @@ function actualizarDesplazamiento($id, $desplazamiento, $id_Jugador,$meta,$id_Po
     corregirRecorrido($id,$meta,$id_Podio, $id_Jugador);
     turnosActual($id_Jugador);
 
-    header("Location: ../views/juego.php");
+    header("Location: ../views/juego.php?idPodio=".$id_Podio);
 }
 
 function corregirRecorrido($id,$meta,$id_Podio, $id_Jugador)
@@ -63,6 +63,19 @@ function turnosActual($id)
     }
 }
 
+function estaSeleccionado_Carril()
+{
+    $modelo = new carril(null, null, null, null);
+
+    return $modelo->seleccionado();
+}
+
+function reiniciarCarril()
+{
+    $modelo = new carril(null, null, null, null);
+    $modelo->reiniciar();
+}
+
 if (isset($_POST['btnAvanzar'])) {
-    actualizarDesplazamiento($_POST['txtIdCarril'], $_POST['txtRecorrido' . $_POST['txtIdCarril']],$_POST['txtIdJugador'],$_POST['txtMeta'],1);
+    actualizarDesplazamiento($_POST['txtIdCarril'], $_POST['txtRecorrido' . $_POST['txtIdCarril']],$_POST['txtIdJugador'],$_POST['txtMeta'],$_POST['idPodio']);
 }

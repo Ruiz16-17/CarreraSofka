@@ -17,3 +17,17 @@ function mostrarConductor_Carro(){
     return $modelo->mostrar('');
     
 }
+
+function estaSeleccionado_Conductor()
+{
+    $modelo = new conductor(null, null, null, null);
+
+    return $modelo->seleccionado();
+}
+
+function reiniciarConductor()
+{
+    $modelo = new conductor(null, null, null, null);
+
+    $modelo->reiniciar();
+}

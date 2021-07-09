@@ -106,6 +106,40 @@ class carril {
             die("Se produjo un error $e");
         }
     }
+
+    public function seleccionado() {
+
+        try {
+
+            $sql = "SELECT COUNT(*) AS cantidad FROM tbl_Carril WHERE id_carro != 0 AND id_carro IS NOT NULL";
+            $query = $this->conexionDB->conectar()->prepare($sql);
+
+            $query->execute();
+
+            $resultado = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultado;
+        } catch (Exception $e) {
+
+            die("Se produjo un error $e");
+        }
+    }
+
+    public function reiniciar() {
+
+        try {
+
+            $sql = "UPDATE tbl_carril SET  
+            id_carro=0, 
+            desplzamiento=0";
+            $query = $this->conexionDB->conectar()->prepare($sql);
+
+            $query->execute();
+        } catch (Exception $e) {
+
+            die("Se produjo un error $e");
+        }
+    }
     
     public function getDesplazamiento()
     {

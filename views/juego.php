@@ -17,6 +17,9 @@
     require('../controllers/ctrlJugador.php');
     require('../controllers/ctrlConductor.php');
     require('../controllers/ctrlCarril.php');
+    require('../controllers/ctrlPodio.php');
+    $terminar = 0;
+    $terminar += terminarJuego(1);
 
     $carrera = mostrarCarrera();
 
@@ -26,6 +29,7 @@
 <body>
     <h1>¡CARRERA!</h1>
     <h2>Meta ¡<?php echo ($carrera[0]['km'] * 1000) ?>m!</h2>
+    <h2>¡Quedan <?php echo $terminar ?> puestos!</h2>
     <table class="table">
         <thead>
             <tr>
@@ -54,27 +58,29 @@
                             <input type="text" value="<?php echo $fila['id'] ?>" name="txtIdCarril">
                             <input type="text" value="<?php echo $fila['id_Jugador'] ?>" name="txtIdJugador">
                             <input type="text" value="<?php echo ($carrera[0]['km'] * 1000) ?>" name="txtMeta">
+                            <input type="text" value="<?php echo $_GET['idPodio'] ?>" name="txtIdPodio">
 
                         </td>
-                            <?php
+                        <?php
+                        if ($terminar != 0) {
                             if (($carrera[0]['km'] * 1000) > $fila['desplazamiento']) {
-
                                 if ($fila['turno'] == 1) {
-                            ?>
-                        <td>
-                                    <button type="button" name="btnLanzar" class="btn btn-warning" onclick="lanzar(<?php echo $fila['id'] ?>,'btnAvanzar');deshabilitar('btnLanzar<?php echo $fila['id'] ?>');" id="btnLanzar<?php echo $fila['id'] ?>">Lanzar</button>
+                        ?>
+                                    <td>
+                                        <button type="button" name="btnLanzar" class="btn btn-warning" onclick="lanzar(<?php echo $fila['id'] ?>,'btnAvanzar');deshabilitar('btnLanzar<?php echo $fila['id'] ?>');" id="btnLanzar<?php echo $fila['id'] ?>">Lanzar</button>
 
-                        </td>
+                                    </td>
 
-                        <td>
+                                    <td>
 
-                            <button type="submit" class="btn btn-outline-success" name="btnAvanzar" disabled="true" id="btnAvanzar<?php echo $fila['id'] ?>">Avanzar</button>
+                                        <button type="submit" class="btn btn-outline-success" name="btnAvanzar" disabled="true" id="btnAvanzar<?php echo $fila['id'] ?>">Avanzar</button>
 
-                        </td>
-                            <?php
+                                    </td>
+                        <?php
                                 }
                             }
-                            ?>
+                        }
+                        ?>
 
                     </tr>
 
@@ -86,6 +92,25 @@
 
         </tbody>
     </table>
+
+    <?php
+
+    if ($terminar == 0) {
+    ?>
+        <div>
+
+            <a href="./ganadores.php?idPodio=".$_GET['idPodio']>
+
+                <h2>Terminar juego</h2>
+
+            </a>
+
+        </div>
+
+    <?php
+    }
+
+    ?>
 
     <div>
         <h2>Sacaste</h2>

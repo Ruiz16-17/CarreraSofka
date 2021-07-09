@@ -16,9 +16,13 @@
     require('../controllers/ctrlJugador.php');
     require('../controllers/ctrlConductor.php');
     require('../controllers/ctrlCarril.php');
+    require('../controllers/ctrlPista.php');
 
     $conductores = mostrarConductor_Carro();
     $carriles = mostrarCarriles($_GET['idPista']);
+    $cantidadCarriles = carrilesPista($_GET['idPista']);
+    $carrilesSeleccionados = estaSeleccionado_Carril();
+    $conductoresSeleccionados = estaSeleccionado_Conductor();
 
     if (isset($_GET['carriles'])) {
         $lista = mostrarJugadoresAleatorios($_GET['carriles']);
@@ -108,10 +112,22 @@
 
 
 
+    <?php 
+
+    if($carrilesSeleccionados[0]['cantidad'] = $cantidadCarriles[0]['carriles'] && $conductoresSeleccionados[0]['cantidad'] = $cantidadCarriles[0]['carriles']){
+
+    
+
+?>
     <form action="../controllers/ctrlJugador.php" method="post">
         <button type="submit" class="btn btn-outline-success" name="btnJugar">Empezar a jugar</button>
     </form>
 
+    <?php 
+
+    }
+
+?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

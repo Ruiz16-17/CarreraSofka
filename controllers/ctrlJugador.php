@@ -7,7 +7,7 @@ function mostrarJugadores()
 
     $modelo = new jugador(null, null, null,null);
 
-    return $modelo->Mostrar('1');
+    return $modelo->Mostrar('');
 }
 
 function mostrarJugador($id)
@@ -88,10 +88,13 @@ function quitarTurno($id)
 function asignarTurno()
 {
     
+    require('../controllers/ctrlPodio.php');
+    crearPodio();
+    $id_Podio = lastIdPodio();
     $modelo = new jugador(null, null, null,null);
 
     $modelo->otorgarTurno();
-    header("Location: ../views/juego.php");
+    header("Location: ../views/juego.php?idPodio=".$id_Podio);
 }
 
 function turnos()
@@ -100,6 +103,13 @@ function turnos()
     $modelo = new jugador(null, null, null,null);
 
     return $modelo->turnosDisponibles();
+}
+
+function reiniciarJugador()
+{
+
+    $modelo = new jugador(null, null, null,null);
+    $modelo->reiniciar();
 }
 
 if(isset($_POST['btnJugar'])){
