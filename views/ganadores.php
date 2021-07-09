@@ -15,9 +15,9 @@
     require('../controllers/ctrlPodio.php');
 
     $ganadores = ganadoresPodio($_GET['idPodio']);
-    $primer = mostrarJugador($ganadores['jugadorPrimero']);
-    $segundo = mostrarJugador($ganadores['jugadorSegundo']);
-    $tercero = mostrarJugador($ganadores['jugadorTercero']);
+    $primer = mostrarJugador($ganadores[0]['jugadorPrimero']);
+    $segundo = mostrarJugador($ganadores[0]['jugadorSegundo']);
+    $tercero = mostrarJugador($ganadores[0]['jugadorTercero']);
     ?>
 
 </head>

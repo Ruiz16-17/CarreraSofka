@@ -18,6 +18,14 @@ function mostrarCarriles($id_pista)
     return $modelo->mostrar();
 }
 
+function cantidad_Carriles($id_Carril)
+{
+
+    $modelo = new carril($id_Carril, null, null, null);
+
+    return $modelo->cantidadCarriles();
+}
+
 function actualizarDesplazamiento($id, $desplazamiento, $id_Jugador,$meta,$id_Podio)
 {
 
@@ -28,7 +36,7 @@ function actualizarDesplazamiento($id, $desplazamiento, $id_Jugador,$meta,$id_Po
     $modelo->setDesplazamiento($desplazamiento);
     $modelo->sumarDesplazamiento();
     corregirRecorrido($id,$meta,$id_Podio, $id_Jugador);
-    turnosActual($id_Jugador);
+    turnosActual($id_Jugador,$id,$id_Podio);
 
     header("Location: ../views/juego.php?idPodio=".$id_Podio);
 }
@@ -49,16 +57,16 @@ function corregirRecorrido($id,$meta,$id_Podio, $id_Jugador)
     }
 }
 
-function turnosActual($id)
+function turnosActual($id,$id_Carril,$id_Podio)
 {
     require('../controllers/ctrlJugador.php');
 
     quitarTurno($id);
-
+    $carriles = cantidad_Carriles($id_Carril);
     $turnos = turnos();
-
-    if ($turnos[0]['cantidad'] > 2) {
-        asignarTurno();
+    echo $carriles[0]['carriles'];
+    if ($turnos[0]['cantidad'] > ($carriles[0]['carriles']-1)) {
+        asignarTurno($id_Podio);
 
     }
 }
@@ -77,5 +85,5 @@ function reiniciarCarril()
 }
 
 if (isset($_POST['btnAvanzar'])) {
-    actualizarDesplazamiento($_POST['txtIdCarril'], $_POST['txtRecorrido' . $_POST['txtIdCarril']],$_POST['txtIdJugador'],$_POST['txtMeta'],$_POST['idPodio']);
+    actualizarDesplazamiento($_POST['txtIdCarril'], $_POST['txtRecorrido' . $_POST['txtIdCarril']],$_POST['txtIdJugador'],$_POST['txtMeta'],$_POST['txtIdPodio']);
 }

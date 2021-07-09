@@ -62,7 +62,7 @@ class conductor {
 
         try {
 
-            $sql = "SELECT COUNT(*) AS cantidad FROM tbl_conductor WHERE id_jugador != 0 AND id_carro IS NOT NULL";
+            $sql = "SELECT COUNT(*) AS cantidad FROM tbl_conductor WHERE id_jugador != 0 AND id_jugador IS NOT NULL";
             $query = $this->conexionDB->conectar()->prepare($sql);
 
             $query->execute();

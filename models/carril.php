@@ -37,6 +37,26 @@ class carril {
         }
     }
 
+    public function cantidadCarriles() {
+
+        try {
+
+            $sql = "SELECT carriles FROM tbl_Carril 
+            INNER JOIN tbl_pista ON tbl_pista.id = tbl_carril.id_pista 
+            WHERE tbl_Carril.id = " .$this->getId();
+            $query = $this->conexionDB->conectar()->prepare($sql);
+
+            $query->execute();
+
+            $resultado = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultado;
+        } catch (Exception $e) {
+
+            die("Se produjo un error $e");
+        }
+    }
+
     public function buscar() {
 
         try {
@@ -131,7 +151,7 @@ class carril {
 
             $sql = "UPDATE tbl_carril SET  
             id_carro=0, 
-            desplzamiento=0";
+            desplazamiento=0";
             $query = $this->conexionDB->conectar()->prepare($sql);
 
             $query->execute();

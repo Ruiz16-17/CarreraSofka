@@ -72,7 +72,7 @@ class podio{
 
         try {
 
-            $sql = "SELECT COUNT(*) AS cantidad FROM tbl_podio WHERE id = $this->getId() AND $puesto IS NULL";
+            $sql = "SELECT COUNT(*) AS cantidad FROM tbl_podio WHERE id =". $this->getId()."   AND $puesto IS NULL";
             $query = $this->conexionDB->conectar()->prepare($sql);
 
             $query->execute();

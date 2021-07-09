@@ -5,7 +5,7 @@ require('../models/jugador.php');
 function mostrarJugadores()
 {
 
-    $modelo = new jugador(null, null, null,null);
+    $modelo = new jugador(null, null, null, null);
 
     return $modelo->Mostrar('');
 }
@@ -13,7 +13,7 @@ function mostrarJugadores()
 function mostrarJugador($id)
 {
 
-    $modelo = new jugador(null, null, null,null);
+    $modelo = new jugador(null, null, null, null);
 
     return $modelo->Mostrar('id = ' . $id);
 }
@@ -21,7 +21,7 @@ function mostrarJugador($id)
 function mostrarActuales()
 {
 
-    $modelo = new jugador(null, null, null,null);
+    $modelo = new jugador(null, null, null, null);
 
     return $modelo->MostrarJugando();
 }
@@ -29,7 +29,7 @@ function mostrarActuales()
 function actualizarNombreJugador($id, $nombre)
 {
 
-    $modelo = new jugador($id, $nombre, null,null);
+    $modelo = new jugador($id, $nombre, null, null);
 
     return $modelo->actualizarNombre();
 }
@@ -37,7 +37,7 @@ function actualizarNombreJugador($id, $nombre)
 function jugadoresAleatorios($carriles)
 {
 
-    $x=0;
+    $x = 0;
     $valores = array();
     while ($x < $carriles) {
         $num_aleatorio = rand(1, 6);
@@ -52,27 +52,27 @@ function jugadoresAleatorios($carriles)
 
 function mostrarJugadoresAleatorios($carriles)
 {
-    
-    $modelo = new jugador(null, null, null,null);
-    $modelo->actualizarEstado('1',0);
+
+    $modelo = new jugador(null, null, null, null);
+    $modelo->actualizarEstado('1', 0);
 
     $jugadores = jugadoresAleatorios($carriles);
     $condicion = '';
-    for ($i=0; $i < sizeof($jugadores) ; $i++) { 
-        if($i==0){
-            $condicion= 'id = ' . $jugadores[$i];
-        }else{
-            $condicion.= ' OR id = ' . $jugadores[$i];
+    for ($i = 0; $i < sizeof($jugadores); $i++) {
+        if ($i == 0) {
+            $condicion = 'id = ' . $jugadores[$i];
+        } else {
+            $condicion .= ' OR id = ' . $jugadores[$i];
         }
     }
-    $modelo->actualizarEstado($condicion,1);
+    $modelo->actualizarEstado($condicion, 1);
     return $modelo->Mostrar($condicion);
 }
 
 function mostrarCarrera()
 {
 
-    $modelo = new jugador(null, null, null,null);
+    $modelo = new jugador(null, null, null, null);
 
     return $modelo->MostrarJugadoresCarrera();
 }
@@ -80,27 +80,23 @@ function mostrarCarrera()
 function quitarTurno($id)
 {
 
-    $modelo = new jugador($id, null, null,null);
+    $modelo = new jugador($id, null, null, null);
 
     $modelo->cumplirTurno();
 }
 
-function asignarTurno()
+function asignarTurno($id_Podio)
 {
-    
-    require('../controllers/ctrlPodio.php');
-    crearPodio();
-    $id_Podio = lastIdPodio();
-    $modelo = new jugador(null, null, null,null);
+    $modelo = new jugador(null, null, null, null);
 
     $modelo->otorgarTurno();
-    header("Location: ../views/juego.php?idPodio=".$id_Podio);
+    header("Location: ../views/juego.php?idPodio=" . $id_Podio);
 }
 
 function turnos()
 {
 
-    $modelo = new jugador(null, null, null,null);
+    $modelo = new jugador(null, null, null, null);
 
     return $modelo->turnosDisponibles();
 }
@@ -108,11 +104,16 @@ function turnos()
 function reiniciarJugador()
 {
 
-    $modelo = new jugador(null, null, null,null);
+    $modelo = new jugador(null, null, null, null);
     $modelo->reiniciar();
 }
 
-if(isset($_POST['btnJugar'])){
+if (isset($_POST['btnJugar'])) {
     require('../db/Conectar.php');
-    asignarTurno();
+    require('../controllers/ctrlPodio.php');
+
+    crearPodio();
+    $id_Podio = lastIdPodio();
+
+    asignarTurno($id_Podio[0]['id']);
 }
